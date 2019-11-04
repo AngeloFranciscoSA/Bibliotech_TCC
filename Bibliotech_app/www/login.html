@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="cordova.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+#mySidenav
+{
+	z-index:100 !important;
+}
+.container
+{
+	z-index:0 !important;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#bg {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+.usuario{
+	
+	position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 36px;
+	
+}
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index.html">Home</a>
+  <a href="categorias.html">Categorias</a>
+  <a href="recomendacao.html">Recomendações</a>
+  <a href="compras.html">Minhas Compras</a>
+  <a href="carrinho.html">Meu Carrinho</a>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+$(document).ready(function(){
+	
+	
+	$("#btn_logar").click(function(){
+	
+	     var email = $("#email").val();
+		 var senha = $("#senha").val();
+		
+		
+		$.post("http://bibliotech.gq/Bibliotech_php/logar.php",
+		{
+			email:email,
+			senha:senha
+		},
+		function(dados)
+		{
+			if(dados != null)
+			{
+				if(dados.logado == "S")
+				{
+					alert("logado, "+dados.nome);
+					
+					localStorage.setItem("logado", dados.logado);
+					localStorage.setItem("nome", dados.nome);
+					localStorage.setItem("id_usuario", dados.id_usuario);
+					
+					window.location.href = "index.html";
+				}
+			}
+			else
+			{
+				alert("erro");
+			}
+          
+			
+		});
+		
+		
+		 
+	});
+
+});
+</script>
+     
+<div class="container" id="bg">
+     <h1>Login</h1>
+	 
+	 <div class="form-group" id="resultado">
+	 </div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="email">Email:</label>
+				<div class="col-sm-10">
+				  <input type="email" class="form-control" id="email" placeholder="Digite seu email">
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="senha">Senha:</label>
+				<div class="col-sm-10"> 
+				  <input type="password" class="form-control" id="senha" placeholder="Digite sua senha">
+				</div>
+			  </div>
+			  <div class="form-group">        
+				<button type="button" id="btn_logar" class="btn btn-success">Logar</button>
+				<a href="cadastro.html" class="btn btn-primary">Cadastrar-se</a>
+				<a href="index.html" class="btn btn-dark" style="float: right;">Voltar</a>
+			</div>
+</div>	 
+	 
+</body>
+</html> 
+
+ <!-- <script type="text/javascript" src="cordova.js"></script> -->

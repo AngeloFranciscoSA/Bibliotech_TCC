@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="cordova.js"></script>
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script_cep.js"></script>
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+#mySidenav
+{
+	z-index:100 !important;
+}
+.container
+{
+	z-index:0 !important;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#bg {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+   <a href="index.html">Home</a>
+  <a href="categorias.html">Categorias</a>
+  <a href="recomendacao.html">Recomendações</a>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+$(document).ready(function(){
+	
+	$("#btn_cadastro").click(function() {
+		
+		var pais =  $("#pais").val();
+		
+		var nome =  $("#nome").val();
+		var email =  $("#email").val();
+		var senha =  $("#senha").val();
+		var sexo =  $("#sexo").val();
+		var cep =  $("#cep").val();
+		var rua =  $("#rua").val();
+		var bairro =  $("#bairro").val();
+		var cidade =  $("#cidade").val();
+		var uf =  $("#uf").val();
+
+				if(nome!="" && email!="" && senha!="")
+		{
+		
+			$.post("http://bibliotech.gq/Bibliotech_php/cadastro_usuario.php",
+			{
+				pais:pais,
+				nome:nome,
+				email:email,
+				senha:senha,
+				sexo:sexo,
+				cep:cep,
+				rua:rua,
+				bairro:bairro,
+				cidade:cidade,
+				uf:uf
+			},
+			function(dados)
+			{
+				$("#resultado").html(dados);
+				if(dados != null)
+				{
+					alert("Cadstrado com sucesso!!!");
+					window.location.href = "login.html";
+				}
+				else
+				{
+					alert("Erro ao cadastrar");
+				}
+				
+			
+			});
+		}
+		else
+		{
+			alert("Preencha os campos");
+		}
+	});
+
+});
+</script>
+     
+<div class="container" id="bg">
+     <h1>Cadastro</h1>
+	 <div class="form-group" id="resultado">
+
+	</div>
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="nome">Nome:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="nome" placeholder="Digite seu nome" required>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="email">Email:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="email" placeholder="Digite seu email" required>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="pwd">Senha:</label>
+				<div class="col-sm-10"> 
+				  <input type="password" class="form-control" id="senha" placeholder="Digite sua senha" required>
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+			  <div class="col-sm-10">
+				<label for="livros">Sexo:</label>
+					<select class="form-control" id="sexo">
+						<option value='M'>Masculino</option>
+						<option value='F'>Feminino</option>
+					</select>
+				</div>
+			 </div>
+			 
+			   <div class="form-group">
+				<label class="control-label col-sm-2" for="cep">CEP:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="cep" placeholder="Digite seu CEP">
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="rua">Rua:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="rua" placeholder="Digite sua Rua" disabled>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="barrio">Barrio:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="bairro" placeholder="Digite seu Barrio" disabled>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="cidade">Cidade:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="cidade" placeholder="Digite sua Cidade" disabled>
+				</div>
+			  </div> 
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="uf">UF:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="uf" placeholder="Digite seu Estado" readonly>
+				</div>
+			  </div>
+			  <div class="form-group">
+				<label class="control-label col-sm-2" for="pais">País:</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="pais" placeholder="Digite seu País">
+				</div>
+			  </div>
+			  
+			  <div class="form-group">        
+				<button class="btn btn-success" id="btn_cadastro">Cadastrar-se</button>
+				<a href="login.html" class="btn btn-dark" style="float: right;"> Voltar</a>
+			  </div>
+</div>	 
+	 
+</body>
+</html> 
+
+ <script type="text/javascript" src="cordova.js"></script>

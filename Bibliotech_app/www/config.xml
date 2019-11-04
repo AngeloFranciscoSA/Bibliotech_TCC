@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="br.com.bibliotech" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <name>Bibliotech</name>
+    <description>
+        Aplicativo Bibliotech desenvolvido como um tcc.
+    </description>
+    <author email="support@Bibliotech.com" href="http://Bibliotech.com">
+        Kiara e Angelo
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+</widget>

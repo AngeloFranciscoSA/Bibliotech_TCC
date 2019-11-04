@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+		<script type="text/javascript" src="cordova.js"></script>
+		 <meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  
+<style>
+body {
+    font-family: "Lato", sans-serif;
+}
+
+#mySidenav
+{
+	z-index:100 !important;
+}
+.container
+{
+	z-index:0 !important;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.usuario{
+	
+	position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 36px;
+	
+}
+#bg {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+.resultado{
+	position: center;
+}
+.usuario{
+	
+	position: absolute;
+    bottom: 8px;
+    left: 16px;
+    font-size: 36px;
+	
+}
+</style>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	<a href="index.html">Livros</a>
+	<a href="categorias.html">Categorias</a>
+	<a href="recomendacao.html">Recomendações</a>
+  <a href="compras.html">Minhas Compras</a>
+  <a href="carrinho.html">Meu Carrinho</a>
+	<a href="usuario.html"><div id="usuario" class="usuario">Meu Perfil</div></a>
+	<div id="logout"></div>
+</div>
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
+<script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+$(document).ready(function(){
+	
+	var logado = localStorage.getItem("logado");
+	var id_usuario = localStorage.getItem("id_usuario");
+	
+	document.getElementById("logout").innerHTML = "<a  href=\"login.html\" id=\"btn_deslogar\">Logout</a>";
+	
+	if(logado != "S")
+	{
+	    alert("Nao logado!");
+		window.location.href = "login.html";
+	}
+	$("#btn_deslogar").click(function()
+	{
+		localStorage.removeItem("logado");
+		localStorage.removeItem("nome");
+				
+		alert("Deslogado");
+			
+		window.location.href = "login.html";
+	});
+
+	$("#btn_busca").click(function(){
+
+		$.post("http://bibliotech.gq/Bibliotech_php/busca_recomendacao_usuario.php",
+		{
+			id_usuario:id_usuario
+		},
+		function(dados)
+		{
+			$("#resultado").html(dados);
+		});
+	});
+	
+	$(document).on("click",".btn_excluir", function(){
+
+		var id = $(this).attr("id");
+		
+		$.post("http://bibliotech.gq/Bibliotech_php/excluir_recomendacao.php",
+		{
+			id:id
+		},
+		function(dados)
+		{
+			alert(dados);
+		});
+	});
+	$(document).on("click",".btn_editar", function(){
+
+		var id_recomendacao = $(this).attr("id_recomendacao");
+		
+		localStorage.setItem("id_recomendacao", id_recomendacao);
+		
+		window.location.href = "recomendacao_editar.html";
+	});
+});
+</script>
+     
+<div class="container" id="bg">
+  <h2 style="text-align: center">Pesquisar minhas recomendações</h2>
+  <br><br>
+  <h4>Minhas Recomendações:</h4>
+  <button class="btn btn-success" id="btn_busca">Pesquisar</button>  
+<br>
+<br>
+	<div class="resultado" id="resultado">
+	</div>
+	<div class="form-group">
+		<a href="recomendacao.html" class="btn btn-dark" style="float: right;"> Voltar</a>
+	</div>
+ </div> 
+	 
+</body>
+</html> 
+
+ <script type="text/javascript" src="cordova.js"></script>
