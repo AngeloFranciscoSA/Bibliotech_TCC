@@ -8,7 +8,7 @@ O projeto desenvolvido para a conclusão do curso técnico.
     * Jquery, conexões com BD em HTML para o aplicativo.
     * Bootstrap, Layout do HTML para todas interfaces.
                          
-  # Arvore:
+  # Árvore de pastas:
   
      -Servidor php:
          - Bibliotech_admin (pasta)
