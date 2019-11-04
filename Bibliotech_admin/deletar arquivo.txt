@@ -1,4 +1,0 @@
-		$sql_caminho = "select * from imagem_livro where id_imagem ='$id_imagem'";
-		$linha_caminho = $conexao->query($sql_caminho);
-		
-		$caminho = $linha_caminho->caminho;
