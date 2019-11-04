@@ -8,11 +8,10 @@ O projeto desenvolvido para a conclusão do curso técnico.
                          * Bootstrap, Layout do HTML para todas interfaces.
                          
   Arvore:
-  ``
-    -Servidor php:
+   -Servidor php:
        - Bibliotech_admin (pasta)
        - Bibliotech_php   (pasta)
        - index.php
 
    -Aplicativo PhoneGap:
-      -www (pasta)´´
+      -www (pasta)
